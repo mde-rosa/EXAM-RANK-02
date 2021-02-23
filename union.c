@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   union.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: assokenay <assokenay@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 23:02:48 by assokenay         #+#    #+#             */
-/*   Updated: 2021/02/22 23:54:50 by assokenay        ###   ########.fr       */
+/*   Updated: 2021/02/23 12:21:30 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int main(int argc, char **argv)
 {
-    char temp[255] = {0};
+    char temp[256] = {0};
     int i, j;
 
     if (argc == 3)
