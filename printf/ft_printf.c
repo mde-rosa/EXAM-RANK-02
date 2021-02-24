@@ -6,19 +6,11 @@
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 12:27:11 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/02/24 15:41:36 by mde-rosa         ###   ########.fr       */
+/*   Updated: 2021/02/24 15:54:35 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdarg.h>
-#include <stdio.h>
-
-typedef struct s_struct
-{
-	int width;
-	int precision;
-}              t_struct;
+#include "ft_printf.h"
 
 t_struct    initlist(void)
 {
