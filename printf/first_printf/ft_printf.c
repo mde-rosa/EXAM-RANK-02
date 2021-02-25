@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mde-rosa <mde-rosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/25 16:50:49 by mde-rosa          #+#    #+#             */
-/*   Updated: 2021/02/25 19:26:01 by mde-rosa         ###   ########.fr       */
+/*   Created: 2021/02/23 12:27:11 by mde-rosa          #+#    #+#             */
+/*   Updated: 2021/02/25 19:09:50 by mde-rosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 t_struct    initlist(void)
 {
-	t_struct	list;
-	
+	t_struct    list;
+
 	list.width = 0;
 	list.precision = -1;
 	return (list);
 }
 
-int ft_putchar(char c, int nbr)
+int     ft_putchar(char c, int i)
 {
 	static int pcc;
 
-	if (nbr == -1)
+	if (i == -1)
 		pcc = 0;
-	if (nbr == 0)
+	if (i == 0)
 	{
 		write(1, &c, 1);
 		pcc++;
 	}
-	if (nbr == 1)
+	if (i == 1)
 		return (pcc);
 	return (0);
 }
@@ -40,25 +40,31 @@ int ft_putchar(char c, int nbr)
 void	print(char *str)
 {
 	int i = 0;
-	while (str[i] != '\0')
-		ft_putchar(str[i++], 0);
+	while (str[i])
+	{
+		ft_putchar(str[i], 0);
+		i++;
+	}
 }
 
 void	print_len(char *str, int len)
 {
 	int i = 0;
 	while (i < len)
-		ft_putchar(str[i++], 0);
+	{
+		ft_putchar(str[i], 0);
+		i++;
+	}
 }
 
-int	is_digit(char c)
+int     is_digit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	ft_atoi(char *str)
+int		ft_atoi(char *str)
 {
 	int i = 0;
 	int result = 0;
@@ -72,18 +78,10 @@ int	ft_atoi(char *str)
 	return (result);
 }
 
-size_t	ft_strlen(char *str)
-{
-	int i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
-}
-
-char	*convert(unsigned int num, int base)
+char 	*convert(unsigned int num, int base)
 {
 	static char	representation[] = "0123456789abcdef";
-	static char buffer[50];
+	static char	buffer[50];
 	char *ptr;
 
 	ptr = &buffer[49];
@@ -98,10 +96,20 @@ char	*convert(unsigned int num, int base)
 	return (ptr);
 }
 
-void	checkflag(const char **tmp, t_struct *list)
+size_t	ft_strlen(const char *str)
 {
-	char	str[11] = {0};
+	size_t i = 0;
+	
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void    checkflag(const char **tmp, t_struct *list)
+{
+	char str[11] = {0};
 	int i = 0;
+
 	if (**tmp == '-')
 		(*tmp)++;
 	if (is_digit(**tmp))
@@ -124,9 +132,9 @@ void	checkflag(const char **tmp, t_struct *list)
 		list->precision = ft_atoi(str);
 		str[0] = '\0';
 	}
-}
+} 
 
-void	checkconversion(const char **tmp, t_struct *list, va_list arg)
+void    checkconversion(const char **tmp, t_struct *list, va_list arg)
 {
 	if (**tmp == 's')
 	{
@@ -158,7 +166,7 @@ void	checkconversion(const char **tmp, t_struct *list, va_list arg)
 	else if (**tmp == 'd')
 	{
 		int nbr;
-		int len = 0;
+		int len;
 		int zero = 0;
 		int space = 0;
 		int neg = 0;
@@ -195,15 +203,15 @@ void	checkconversion(const char **tmp, t_struct *list, va_list arg)
 	else if (**tmp == 'x')
 	{
 		int nbr;
-		int len = 0;
+		int len;
 		int zero = 0;
 		int space = 0;
 
-		nbr = va_arg(arg, unsigned int);
+		nbr = va_arg(arg, int);
 		len = ft_strlen(convert(nbr, 16));
 		if (list->precision > 0 && list->precision > len)
 		{
-			zero  = list->precision - len;
+			zero = list->precision - len;
 			len = list->precision;
 		}
 		if (list->width > 0 && list->width > len)
@@ -219,10 +227,10 @@ void	checkconversion(const char **tmp, t_struct *list, va_list arg)
 	(*tmp)++;
 }
 
-int ft_printf(const char *tmp, ... )
+int     ft_printf(const char *tmp, ...)
 {
-	t_struct    list;
-	va_list     arg;
+	va_list		arg;
+	t_struct	list;
 	ft_putchar('0', -1);
 	va_start(arg, tmp);
 	while (*tmp != '\0')
@@ -236,7 +244,7 @@ int ft_printf(const char *tmp, ... )
 		{
 			tmp++;
 			if (*tmp == '\0')
-				break;
+				break ;
 			list = initlist();
 			checkflag(&tmp, &list);
 			checkconversion(&tmp, &list, arg);
